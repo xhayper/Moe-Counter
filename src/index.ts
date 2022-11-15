@@ -14,28 +14,36 @@ import path from "path";
 
   await server.register(import("@fastify/compress"));
 
-  const countOptions: RouteShorthandOptions = {
+  const customizationOption: RouteShorthandOptions = {
     schema: {
       querystring: {
         type: "object",
-        required: ["theme"],
         properties: {
           theme: {
             type: "string",
             enum: Object.keys(themeList),
           },
+          length: {
+            type: "number",
+            minimum: 1,
+            maximum: 12,
+          },
+          pixelated: {
+            type: "boolean",
+          }
         },
       },
     },
   };
 
-  const PLACES = 7;
-
-  server.get("/count/:identifier", countOptions, async (req, res) => {
+  server.get("/count/:identifier", customizationOption, async (req, res) => {
     const { identifier } = req.params as any;
-    const { theme } = req.query as any;
+    let { theme, length, pixelated } = req.query as any;
 
-    if (!identifier || identifier.length > 32) {
+    theme = theme ?? "moebooru";
+    length = parseInt(length ?? "7");
+
+    if (!identifier || identifier.length > 256) {
       res.code(400);
       return {
         statusCode: 400,
@@ -66,94 +74,59 @@ import path from "path";
           },
         });
 
-      count = CountData.count + 1;
+      if (Number.MAX_SAFE_INTEGER > CountData.count)
+        count = CountData.count + 1;
 
-      await prisma.count.update({
-        where: {
-          identifier,
-        },
-        data: {
-          count,
-        },
-      });
+      if (CountData.count !== count)
+        await prisma.count.update({
+          where: {
+            identifier,
+          },
+          data: {
+            count,
+          },
+        });
     } else {
       count = 1234567890;
     }
 
-    return getCountImage({ count, theme, length: 7 });
+    return getCountImage({ count, theme, length, pixelated });
   });
 
-  // const app = express();
+  server.get("/number/:amount", customizationOption, (req, res) => {
+    let { amount } = req.params as any;
+    let { theme, length } = req.query as any;
 
-  // app.use(express.static("assets"));
-  // app.use(compression());
-  // app.set("view engine", "pug");
+    if (amount.length > 16) {
+      res.code(400);
+      return {
+        statusCode: 400,
+        error: "Bad Request",
+        message: "number length must be <= 32",
+      };
+    }
 
-  // app.get("/", (req, res) => {
-  //   res.render("index");
-  // });
+    theme = theme ?? "moebooru";
+    length = parseInt(length ?? "7");
+    amount = parseInt(amount);
 
-  // get the image
-  // app.get("/get/@:name", async (req, res) => {
-  //   const { name } = req.params;
-  //   const { theme = "moebooru" } = req.query;
-  //   let length = PLACES;
+    if (!amount || 0 > amount) {
+      res.code(400);
+      return {
+        statusCode: 400,
+        error: "Bad Request",
+        message: "number must be a valid positive integer",
+      };
+    }
 
-  //   // This helps with GitHub's image cache
-  //   res.set({
-  //     "content-type": "image/svg+xml",
-  //     "cache-control": "max-age=0, no-cache, no-store, must-revalidate",
-  //   });
+    res.header("content-type", "image/svg+xml");
 
-  //   const data = await getCountByName(name);
+    return getCountImage({ count: amount, theme, length });
+  });
 
-  //   if (name === "demo") {
-  //     res.set({
-  //       "cache-control": "max-age=31536000",
-  //     });
-  //     length = 10;
-  //   }
+  server.get("/heart-beat", () => {
+    return "alive";
+  });
 
-  //   // Send the generated SVG as the result
-  //   const renderSvg = themify.getCountImage({ count: data.num, theme, length });
-  //   res.send(renderSvg);
-
-  //   console.log(data, `theme: ${theme}`);
-  // });
-
-  // JSON record
-  // app.get("/record/@:name", async (req, res) => {
-  //   const { name } = req.params;
-
-  //   const data = await getCountByName(name);
-
-  //   res.json(data);
-  // });
-
-  // app.get("/heart-beat", (req, res) => {
-  //   res.set({
-  //     "cache-control": "max-age=0, no-cache, no-store, must-revalidate",
-  //   });
-
-  //   res.send("alive");
-  //   console.log("heart-beat");
-  // });
-
-  // async function getCountByName(name) {
-  //   const defaultCount = { name, num: 0 };
-
-  //   if (name === "demo") return { name, num: "0123456789" };
-
-  //   try {
-  //     const counter = (await db.getNum(name)) || defaultCount;
-  //     const num = counter.num + 1;
-  //     db.setNum(counter.name, num);
-  //     return counter;
-  //   } catch (error) {
-  //     console.log("get count by name is error: ", error);
-  //     return defaultCount;
-  //   }
-  // }
-
-  server.listen({ port: 3000 }, (err) => {});
+  server.listen({ port: 3000 });
 })();
