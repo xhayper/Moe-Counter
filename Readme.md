@@ -2,29 +2,29 @@
 
 多种风格可选的萌萌计数器
 
-![Moe-counter](https://%placeholder_url%/count/Moe-counter.github)
+![Moe-counter](https://Moe-counter.hayper.repl.co/count/Moe-counter.github)
 
 <details>
 <summary>More theme</summary>
 
 ##### asoul
-![asoul](https://%placeholder_url%/count/demo?theme=asoul)
+![asoul](https://Moe-counter.hayper.repl.co/count/demo?theme=asoul)
 
 ##### moebooru
-![moebooru](https://%placeholder_url%/count/demo?theme=moebooru)
+![moebooru](https://Moe-counter.hayper.repl.co/count/demo?theme=moebooru)
 
 ##### rule34
-![Rule34](https://%placeholder_url%/count/demo?theme=rule34)
+![Rule34](https://Moe-counter.hayper.repl.co/count/demo?theme=rule34)
 
 ##### gelbooru
-![Gelbooru](https://%placeholder_url%/count/demo?theme=gelbooru)
+![Gelbooru](https://Moe-counter.hayper.repl.co/count/demo?theme=gelbooru)
 
 ##### e621
-![e621](https://%placeholder_url%/count/demo?theme=e621)
+![e621](https://Moe-counter.hayper.repl.co/count/demo?theme=e621)
 </details>
 
 ## Demo
-[https://%placeholder_url%/](https://%placeholder_url%/)
+[https://Moe-counter.hayper.repl.co/](https://Moe-counter.hayper.repl.co/)
 
 ## Usage
 
