@@ -2,69 +2,64 @@
 
 多种风格可选的萌萌计数器
 
-![Moe-counter](https://count.getloli.com/get/@Moe-counter.github)
+![Moe-counter](https://%placeholder_url%/count/Moe-counter.github)
 
 <details>
 <summary>More theme</summary>
 
 ##### asoul
-![asoul](https://count.getloli.com/get/@demo?theme=asoul)
+![asoul](https://%placeholder_url%/count/demo?theme=asoul)
 
 ##### moebooru
-![moebooru](https://count.getloli.com/get/@demo?theme=moebooru)
+![moebooru](https://%placeholder_url%/count/demo?theme=moebooru)
 
 ##### rule34
-![Rule34](https://count.getloli.com/get/@demo?theme=rule34)
+![Rule34](https://%placeholder_url%/count/demo?theme=rule34)
 
 ##### gelbooru
-![Gelbooru](https://count.getloli.com/get/@demo?theme=gelbooru)</details>
+![Gelbooru](https://%placeholder_url%/count/demo?theme=gelbooru)
+
+##### e621
+![e621](https://%placeholder_url%/count/demo?theme=e621)
+</details>
 
 ## Demo
-[https://count.getloli.com](https://count.getloli.com)
+[https://%placeholder_url%/](https://%placeholder_url%/)
 
 ## Usage
 
 ### Install
 
-#### Run on Repl.it
-
-- Open the url [https://repl.it/@journeyad/Moe-counter](https://repl.it/@journeyad/Moe-counter)
-- Just hit the **Fork** button
-- And hit the **Run** button
-
 #### Deploying on your own server
 
 ```shell
-$ git clone https://github.com/journey-ad/Moe-counter.git
+$ git clone https://github.com/xhayper/Moe-counter.git -b fork
 $ cd Moe-counter
-$ yarn install
-
-$ yarn start
+$ yarn
+$ npx prisma generate
+$ npx prisma migrate dev --name init
+$ tsc
+$ node .
 ```
 
-### Confignation
+### Configuration
 
-`config.yml`
+`.env`
 
-```yaml
-app:
-  port: 3000
-
-db:
-  type: mongodb # sqlite or mongodb
+```env
+# URL to database
+# use `file:` for sqlite database
+DATABASE_URL=
 ```
 
-If you use mongodb, you need to specify the environment variable `DB_URL`
+`prisma/schema.prisma`
 
-```shell
-# eg:
-export DB_URL=mongodb+srv://account:passwd@***.***.***.mongodb.net/db_count
-```
-
-repl.it can use `.env` file, [documentation](https://docs.repl.it/repls/secret-keys)
-
-```
-DB_URL="mongodb+srv://account:passwd@***.***.***.mongodb.net/db_count"
+```prisma
+// ...
+datasource db {
+  // sqlite, postgresql, mysql, sqlserver, mongodb or cockroachdb.
+  provider = "sqlite"
+// ...
 ```
 
 ## Credits
@@ -74,8 +69,9 @@ DB_URL="mongodb+srv://account:passwd@***.***.***.mongodb.net/db_count"
 *   [moebooru](https://github.com/moebooru/moebooru)
 *   rule34.xxx NSFW
 *   gelbooru.com NSFW
+*   e621.net NSFW
 *   [Icons8](https://icons8.com/icons/set/star)
 
 ## License
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjourney-ad%2FMoe-counter.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjourney-ad%2FMoe-counter?ref=badge_large)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fxhayper%2FMoe-counter.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fxhayper%2FMoe-counter?ref=badge_large)

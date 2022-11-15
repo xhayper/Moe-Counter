@@ -2,22 +2,25 @@
   "name": "kawaii-counter",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
+  "main": "dist/index.js",
   "author": "journey-ad",
   "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node ."
+  },
   "dependencies": {
-    "compression": "^1.7.4",
-    "config-yml": "^0.10.3",
-    "express": "^4.17.1",
-    "image-size": "^0.8.3",
-    "mime-types": "^2.1.27",
-    "mongoose": "^5.9.28",
-    "pug": "^3.0.0",
-    "sqlite3": "^5.0.0"
-  }
+    "@fastify/compress": "^6.1.1",
+    "@fastify/static": "^6.5.0",
+    "@prisma/client": "^4.6.1",
+    "fastify": "^4.9.2",
+    "image-size": "^1.0.2",
+    "mime-types": "^2.1.35"
+  },
+  "devDependencies": {
+    "@types/mime-types": "^2.1.1",
+    "@types/node": "^18.11.9",
+    "prisma": "^4.6.1"
+  },
+  "packageManager": "yarn@3.2.4"
 }
