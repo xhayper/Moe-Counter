@@ -36,10 +36,12 @@ export const getCountImage = ({
   count,
   theme = "moebooru",
   length = 7,
+  pixelated,
 }: {
   count: number;
-  theme: string;
-  length: number;
+  theme?: string;
+  length?: number;
+  pixelated?: boolean;
 }): string => {
   if (!(theme in themeList)) theme = "moebooru";
 
@@ -62,5 +64,11 @@ export const getCountImage = ({
     return image;
   }, "");
 
-  return `<?xml version="1.0" encoding="UTF-8"?><svg width="${x}" height="${y}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><title>${count}</title><g>${parts}</g></svg>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="${x}" height="${y}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ${
+    pixelated ? "style='image-rendering: pixelated;'" : ""
+  }>
+  <title>${count}</title>
+  <g>${parts}</g>
+</svg>`;
 };
