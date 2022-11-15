@@ -1,0 +1,16 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Good ol' sql database.
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Count {
+  // This is going to be hashed to protect user's privacy.
+  identifier String @id @unique
+  // The actual count itself.
+  count      Int    @default(0)
+}
