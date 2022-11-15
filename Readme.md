@@ -71,6 +71,7 @@ datasource db {
 *   gelbooru.com NSFW
 *   e621.net NSFW
 *   [Icons8](https://icons8.com/icons/set/star)
+*   [journey-ad](https://github.com/journey-ad/)
 
 ## License
 
