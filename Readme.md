@@ -33,7 +33,7 @@
 #### Deploying on your own server
 
 ```shell
-$ git clone https://github.com/xhayper/Moe-counter.git -b fork
+$ git clone https://github.com/xhayper/Moe-counter.git
 $ cd Moe-counter
 $ yarn
 $ npx prisma generate
