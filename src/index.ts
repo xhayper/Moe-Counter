@@ -30,7 +30,7 @@ import path from "path";
           },
           pixelated: {
             type: "boolean",
-          }
+          },
         },
       },
     },
@@ -53,14 +53,15 @@ import path from "path";
     }
 
     res.header("content-type", "image/svg+xml");
-    res.header(
-      "cache-control",
-      "max-age=0, no-cache, no-store, must-revalidate"
-    );
 
     let count = 0;
 
     if (identifier !== "demo") {
+      res.header(
+        "cache-control",
+        "max-age=0, no-cache, no-store, must-revalidate"
+      );
+
       let CountData = await prisma.count.findFirst({
         where: {
           identifier,

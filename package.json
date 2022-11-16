@@ -1,7 +1,7 @@
 {
   "name": "kawaii-counter",
   "version": "1.0.0",
-  "description": "",
+  "description": "多种风格可选的萌萌计数器",
   "main": "dist/index.js",
   "author": "journey-ad",
   "license": "MIT",
