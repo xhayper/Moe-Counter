@@ -2,29 +2,37 @@
 
 多种风格可选的萌萌计数器
 
-![Moe-counter](https://Moe-counter.hayper.repl.co/count/Moe-counter.github)
+![Moe-counter](https://moe-counter.hayper.repl.co/count/Moe-counter.github)
 
 <details>
 <summary>More theme</summary>
 
 ##### asoul
-![asoul](https://Moe-counter.hayper.repl.co/count/demo?theme=asoul)
+![asoul](https://moe-counter.hayper.repl.co/count/demo?theme=asoul)
 
 ##### moebooru
-![moebooru](https://Moe-counter.hayper.repl.co/count/demo?theme=moebooru)
+![moebooru](https://moe-counter.hayper.repl.co/count/demo?theme=moebooru)
 
 ##### rule34
-![Rule34](https://Moe-counter.hayper.repl.co/count/demo?theme=rule34)
+![Rule34](https://moe-counter.hayper.repl.co/count/demo?theme=rule34)
 
 ##### gelbooru
-![Gelbooru](https://Moe-counter.hayper.repl.co/count/demo?theme=gelbooru)
+![Gelbooru](https://moe-counter.hayper.repl.co/count/demo?theme=gelbooru)
 
 ##### e621
-![e621](https://Moe-counter.hayper.repl.co/count/demo?theme=e621)
+![e621](https://moe-counter.hayper.repl.co/count/demo?theme=e621)
+
+  <details>
+    <summary>NSFW</summary>
+
+##### moebooru-h
+
+##### gelbooru-h
+  </details>
 </details>
 
 ## Demo
-[https://Moe-counter.hayper.repl.co/](https://Moe-counter.hayper.repl.co/)
+[https://moe-counter.hayper.repl.co/](https://moe-counter.hayper.repl.co/)
 
 ## Usage
 
@@ -75,4 +83,4 @@ datasource db {
 
 ## License
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fxhayper%2FMoe-counter.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fxhayper%2FMoe-counter?ref=badge_large)
+[MIT](LICENSE)
