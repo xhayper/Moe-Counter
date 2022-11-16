@@ -284,6 +284,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^16.0.3":
+  version: 16.0.3
+  resolution: "dotenv@npm:16.0.3"
+  checksum: afcf03f373d7a6d62c7e9afea6328e62851d627a4e73f2e12d0a8deae1cd375892004f3021883f8aec85932cd2834b091f568ced92b4774625b321db83b827f8
+  languageName: node
+  linkType: hard
+
 "duplexify@npm:^3.5.0":
   version: 3.7.1
   resolution: "duplexify@npm:3.7.1"
@@ -568,10 +575,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-plain-obj@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "is-plain-obj@npm:3.0.0"
+  checksum: a6ebdf8e12ab73f33530641972a72a4b8aed6df04f762070d823808303e4f76d87d5ea5bd76f96a7bbe83d93f04ac7764429c29413bd9049853a69cb630fb21c
+  languageName: node
+  linkType: hard
+
 "isarray@npm:~1.0.0":
   version: 1.0.0
   resolution: "isarray@npm:1.0.0"
   checksum: f032df8e02dce8ec565cf2eb605ea939bdccea528dbcf565cdf92bfa2da9110461159d86a537388ef1acef8815a330642d7885b29010e8f7eac967c9993b65ab
+  languageName: node
+  linkType: hard
+
+"join-images@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "join-images@npm:1.1.3"
+  dependencies:
+    is-plain-obj: ^3.0.0
+    tslib: ^2.3.1
+  peerDependencies:
+    sharp: ^0.30.4
+  checksum: c58bd371b07d15d39369d11549db2755a5f198d14af7cd0911a465d376019c16434f6ea693f0804a3ffe1e54e1f00b2802a9bb5cfac5decfcb8a473c74e307cb
   languageName: node
   linkType: hard
 
@@ -591,8 +617,10 @@ __metadata:
     "@prisma/client": ^4.6.1
     "@types/mime-types": ^2.1.1
     "@types/node": ^18.11.9
+    dotenv: ^16.0.3
     fastify: ^4.9.2
     image-size: ^1.0.2
+    join-images: ^1.1.3
     mime-types: ^2.1.35
     prisma: ^4.6.1
   languageName: unknown
@@ -1100,6 +1128,13 @@ __metadata:
   version: 1.0.1
   resolution: "toidentifier@npm:1.0.1"
   checksum: 952c29e2a85d7123239b5cfdd889a0dde47ab0497f0913d70588f19c53f7e0b5327c95f4651e413c74b785147f9637b17410ac8c846d5d4a20a5a33eb6dc3a45
+  languageName: node
+  linkType: hard
+
+"tslib@npm:^2.3.1":
+  version: 2.4.1
+  resolution: "tslib@npm:2.4.1"
+  checksum: 19480d6e0313292bd6505d4efe096a6b31c70e21cf08b5febf4da62e95c265c8f571f7b36fcc3d1a17e068032f59c269fab3459d6cd3ed6949eafecf64315fca
   languageName: node
   linkType: hard
 

@@ -32,6 +32,7 @@ import path from "path";
             type: "boolean",
           },
         },
+        additionalProperties: false,
       },
     },
   };
@@ -52,10 +53,7 @@ import path from "path";
       };
     }
 
-    res.header("content-type", "image/svg+xml");
-
     let count = 0;
-
     if (identifier !== "demo") {
       res.header(
         "cache-control",
@@ -91,12 +89,13 @@ import path from "path";
       count = 1234567890;
     }
 
+    res.header("content-type", "image/svg+xml");
     return getCountImage({ count, theme, length, pixelated });
   });
 
-  server.get("/number/:amount", customizationOption, (req, res) => {
+  server.get("/number/:amount", customizationOption, async (req, res) => {
     let { amount } = req.params as any;
-    let { theme, length } = req.query as any;
+    let { theme, length, pixelated } = req.query as any;
 
     if (amount.length > 16) {
       res.code(400);
@@ -121,13 +120,14 @@ import path from "path";
     }
 
     res.header("content-type", "image/svg+xml");
-
-    return getCountImage({ count: amount, theme, length });
+    return getCountImage({ count: amount, theme, length, pixelated });
   });
 
   server.get("/heart-beat", () => {
     return "alive";
   });
 
-  server.listen({ port: 3000 });
+  server.listen({
+    port: 3000,
+  });
 })();

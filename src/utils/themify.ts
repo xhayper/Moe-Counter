@@ -13,30 +13,32 @@ export const convertToDatauri = (path: string) => {
   const mime = mimeType.lookup(path);
   const base64 = fs.readFileSync(path).toString("base64");
 
-  return `data:${mime};base64,${base64}`;
+  return `data:${mime};charset=utf-8;base64,${base64}`;
 };
 
 fs.readdirSync(themePath).forEach((theme) => {
   if (!(theme in themeList)) themeList[theme] = {};
+
   const imgList = fs.readdirSync(path.resolve(themePath, theme));
-  imgList.forEach((img) => {
+
+  for (const img of imgList) {
     const imgPath = path.resolve(themePath, theme, img);
-    const name = path.parse(img).name;
     const { width, height } = sizeOf(imgPath);
+    const name = path.parse(img).name;
 
     themeList[theme][name] = {
       width: width ?? 0,
       height: height ?? 0,
       data: convertToDatauri(imgPath),
     };
-  });
+  }
 });
 
 export const getCountImage = ({
   count,
   theme = "moebooru",
   length = 7,
-  pixelated,
+  pixelated = true,
 }: {
   count: number;
   theme?: string;
@@ -45,24 +47,20 @@ export const getCountImage = ({
 }): string => {
   if (!(theme in themeList)) theme = "moebooru";
 
-  // This is not the greatest way for generating an SVG but it'll do for now
   const countArray = count.toString().padStart(length, "0").split("");
 
-  let x = 0,
-    y = 0;
+  let x = 0;
+  let y = 0;
+  let parts = "";
 
-  const parts = countArray.reduce((acc, next) => {
-    const { width, height, data } = themeList[theme][next];
+  for (const num of countArray) {
+    const { width, height, data } = themeList[theme][num];
 
-    const image = `${acc}
-      <image x="${x}" y="0" width="${width}" height="${height}" xlink:href="${data}" />`;
+    parts += `<image x="${x}" y="0" width="${width}" height="${height}" href="${data}" />`;
 
     x += width;
-
-    if (height > y) y = height;
-
-    return image;
-  }, "");
+    y = Math.max(y, height);
+  }
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${x}" height="${y}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ${
