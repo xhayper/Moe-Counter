@@ -59,7 +59,7 @@ import path from "path";
       };
     }
 
-    let count = 0;
+    let count: string | number = 0;
     if (identifier !== "demo") {
       res.header(
         "cache-control",
@@ -92,7 +92,7 @@ import path from "path";
           },
         });
     } else {
-      count = 1234567890;
+      count = "0123456789";
     }
 
     res.header("content-type", "image/svg+xml");

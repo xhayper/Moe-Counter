@@ -40,7 +40,7 @@ export const getCountImage = ({
   length = 7,
   pixelated = true,
 }: {
-  count: number;
+  count: number | string;
   theme?: string;
   length?: number;
   pixelated?: boolean;
