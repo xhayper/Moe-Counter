@@ -6,7 +6,13 @@ import path from "path";
 (async () => {
   const prisma = new PrismaClient();
 
-  const server = fastify({ logger: true });
+  const server = fastify({
+    logger: {
+      transport: {
+        target: "@fastify/one-line-logger",
+      },
+    },
+  });
 
   await server.register(import("@fastify/static"), {
     root: path.join(__dirname, "../assets"),
