@@ -1,27 +1,27 @@
-use crate::theme::{get_theme, render_image};
+use crate::theme::{render_image};
 
 use crate::routes::ImageOption;
 use ::entity::{count};
+use crate::Storage;
 use sea_orm::*;
 
 pub async fn count_handlers(
     identifier: String,
-    db: DatabaseConnection,
+    storage: Storage,
     image_option: ImageOption,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    let count_instance: Result<Option<count::Model>, DbErr> = count::Entity::find_by_id(identifier.clone()).one(&db).await;
+    let count_instance: Result<Option<count::Model>, DbErr> = count::Entity::find_by_id(identifier.clone()).one(&storage.db).await;
 
-    let num: u32;
+    let number: u32;
 
     if identifier != "demo" {
-        num = match count_instance.unwrap() {
+        number = match count_instance.unwrap() {
             Some(model) => {
                 let new_count = model.count + 1;
 
                 let mut active_model: count::ActiveModel = model.into();
                 active_model.count = Set(new_count);
-
-                active_model.update(&db).await.expect("Failed to update count");
+                active_model.update(&storage.db).await.expect("Failed to update count");
 
                 new_count
             }
@@ -31,27 +31,24 @@ pub async fn count_handlers(
                     count: Set(1),
                 };
 
-                count::Entity::insert(new_count).exec(&db).await.expect("Failed to insert new counter... something is seriously wrong...");
+                count::Entity::insert(new_count).exec(&storage.db).await.expect("Failed to insert new counter... something is seriously wrong...");
 
                 1
             }
         };
     } else {
-        num = 1234567890;
+        number = 1234567890;
     }
 
-    let theme = get_theme();
-    let rendered = render_image(&theme, &image_option.theme.unwrap_or("moebooru".to_string()), num, image_option.length.unwrap_or(7), image_option.pixelated.unwrap_or(true));
-
+    let rendered = render_image(&storage.theme, &image_option.theme.unwrap_or("moebooru".to_string()), number, image_option.length.unwrap_or(7), image_option.pixelated.unwrap_or(true));
     Ok(warp::reply::with_header(rendered, "content-type", "image/svg+xml"))
 }
 
 pub async fn number_handlers(
     number: u32,
+    storage: Storage,
     image_option: ImageOption,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    let theme = get_theme();
-    let rendered = render_image(&theme, &image_option.theme.unwrap_or("moebooru".to_string()), number, image_option.length.unwrap_or(7), image_option.pixelated.unwrap_or(true));
-
+    let rendered = render_image(&storage.theme, &image_option.theme.unwrap_or("moebooru".to_string()), number, image_option.length.unwrap_or(7), image_option.pixelated.unwrap_or(true));
     Ok(warp::reply::with_header(rendered, "content-type", "image/svg+xml"))
 }

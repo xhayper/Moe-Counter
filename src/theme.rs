@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use std::fs;
 
+#[derive(Clone)]
 pub struct ThemeImageData {
     // URI encoded data
     pub data: String,
