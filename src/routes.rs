@@ -1,7 +1,7 @@
 use crate::handlers::{number_handlers, count_handlers};
 use serde::{Serialize, Deserialize};
-use sea_orm::DatabaseConnection;
 use std::convert::Infallible;
+use crate::Storage;
 use warp::Filter;
 
 #[derive(Serialize, Deserialize)]
@@ -16,16 +16,16 @@ pub fn with_image_options() -> impl Filter<Extract=(ImageOption, ), Error=warp::
         .map(|image_option: ImageOption| image_option)
 }
 
-pub fn with_db(db: DatabaseConnection) -> impl Filter<Extract=(DatabaseConnection, ), Error=Infallible> + Clone {
-    warp::any().map(move || db.clone())
+pub fn with_storage(storage: Storage) -> impl Filter<Extract=(Storage, ), Error=Infallible> + Clone {
+    warp::any().map(move || storage.clone())
 }
 
-pub fn get_count(db: DatabaseConnection) -> impl Filter<Extract=impl warp::Reply, Error=warp::Rejection> + Clone {
-    warp::path!("count" / String).and(warp::get()).and(with_db(db)).and(with_image_options()).and_then(count_handlers)
+pub fn get_count(storage: &Storage) -> impl Filter<Extract=impl warp::Reply, Error=warp::Rejection> + Clone {
+    warp::path!("count" / String).and(warp::get()).and(with_storage(storage.clone())).and(with_image_options()).and_then(count_handlers)
 }
 
-pub fn get_number() -> impl Filter<Extract=impl warp::Reply, Error=warp::Rejection> + Clone {
-    warp::path!("number" / u32).and(warp::get()).and(with_image_options()).and_then(number_handlers)
+pub fn get_number(storage: &Storage) -> impl Filter<Extract=impl warp::Reply, Error=warp::Rejection> + Clone {
+    warp::path!("number" / u32).and(warp::get()).and(with_storage(storage.clone())).and(with_image_options()).and_then(number_handlers)
 }
 
 pub fn static_route() -> impl Filter<Extract=impl warp::Reply, Error=warp::Rejection> + Clone {
