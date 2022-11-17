@@ -1,11 +1,13 @@
 use crate::theme::{get_theme, render_image};
+
+use crate::routes::ImageOption;
 use ::entity::{count};
 use sea_orm::*;
-use warp::http;
 
 pub async fn count_handlers(
     identifier: String,
     db: DatabaseConnection,
+    image_option: ImageOption,
 ) -> Result<impl warp::Reply, warp::Rejection> {
     let count_instance: Result<Option<count::Model>, DbErr> = count::Entity::find_by_id(identifier.clone()).one(&db).await;
 
@@ -39,16 +41,17 @@ pub async fn count_handlers(
     }
 
     let theme = get_theme();
-    let rendered = render_image(&theme, "rule34", num, 7, true);
+    let rendered = render_image(&theme, &image_option.theme.unwrap_or("moebooru".to_string()), num, image_option.length.unwrap_or(7), image_option.pixelated.unwrap_or(true));
 
     Ok(warp::reply::with_header(rendered, "content-type", "image/svg+xml"))
 }
 
 pub async fn number_handlers(
     number: u32,
+    image_option: ImageOption,
 ) -> Result<impl warp::Reply, warp::Rejection> {
-    Ok(warp::reply::with_status(
-        number.to_string(),
-        http::StatusCode::CREATED,
-    ))
+    let theme = get_theme();
+    let rendered = render_image(&theme, &image_option.theme.unwrap_or("moebooru".to_string()), number, image_option.length.unwrap_or(7), image_option.pixelated.unwrap_or(true));
+
+    Ok(warp::reply::with_header(rendered, "content-type", "image/svg+xml"))
 }
