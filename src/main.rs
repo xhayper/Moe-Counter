@@ -24,7 +24,8 @@ pub async fn main() {
 
     let db: DatabaseConnection = Database::connect(env::var("DATABASE_URL").expect("`DATABASE_URL` is undefined!")).await.unwrap();
 
-    let routes = static_route()
+    let routes =
+        static_route()
         .or(get_count(db.clone()))
         .or(get_number());
 
