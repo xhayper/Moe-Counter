@@ -10,6 +10,7 @@ datasource db {
 
 model Count {
   // This is going to be hashed to protect user's privacy.
+  // Scratch that, replit won't be able to hash the identifier every timea request happened, plus i don't know how to do it.
   identifier String @id @unique
   // The actual count itself.
   count      Int    @default(0)
