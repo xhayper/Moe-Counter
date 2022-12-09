@@ -1,17 +1,14 @@
-import mimeType from "mime-types";
-import sizeOf from "image-size";
-import path from "path";
-import fs from "fs";
+import mimeType from 'mime-types';
+import sizeOf from 'image-size';
+import path from 'node:path';
+import fs from 'node:fs';
 
-export const themePath = path.resolve(__dirname, "../../assets/theme");
-export const themeList: Record<
-  string,
-  Record<string, { width: number; height: number; data: string }>
-> = {};
+export const themePath = path.resolve(__dirname, '../../assets/theme');
+export const themeList: Record<string, Record<string, { width: number; height: number; data: string }>> = {};
 
 export const convertToDatauri = (path: string) => {
   const mime = mimeType.lookup(path);
-  const base64 = fs.readFileSync(path).toString("base64");
+  const base64 = fs.readFileSync(path).toString('base64');
 
   return `data:${mime};charset=utf-8;base64,${base64}`;
 };
@@ -29,29 +26,29 @@ fs.readdirSync(themePath).forEach((theme) => {
     themeList[theme][name] = {
       width: width ?? 0,
       height: height ?? 0,
-      data: convertToDatauri(imgPath),
+      data: convertToDatauri(imgPath)
     };
   }
 });
 
 export const getCountImage = ({
   count,
-  theme = "moebooru",
+  theme = 'moebooru',
   length = 7,
-  pixelated = true,
+  pixelated = true
 }: {
   count: number | string;
   theme?: string;
   length?: number;
   pixelated?: boolean;
 }): string => {
-  if (!(theme in themeList)) theme = "moebooru";
+  if (!(theme in themeList)) theme = 'moebooru';
 
-  const countArray = count.toString().padStart(length, "0").split("");
+  const countArray = count.toString().padStart(length, '0').split('');
 
   let x = 0;
   let y = 0;
-  let parts = "";
+  let parts = '';
 
   for (const num of countArray) {
     const { width, height, data } = themeList[theme][num];
@@ -64,7 +61,7 @@ export const getCountImage = ({
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${x}" height="${y}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ${
-    pixelated ? "style='image-rendering: pixelated;'" : ""
+    pixelated ? "style='image-rendering: pixelated;'" : ''
   }>
   <title>${count}</title>
   <g>${parts}</g>
