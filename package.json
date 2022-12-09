@@ -8,9 +8,9 @@
   "private": true,
   "dependencies": {
     "@fastify/compress": "^6.2.0",
-    "@fastify/one-line-logger": "^1.0.0",
-    "@fastify/static": "^6.5.1",
-    "@prisma/client": "^4.7.0",
+    "@fastify/one-line-logger": "^1.1.1",
+    "@fastify/static": "^6.6.0",
+    "@prisma/client": "^4.7.1",
     "dotenv": "^16.0.3",
     "fastify": "^4.10.2",
     "image-size": "^1.0.2",
@@ -18,8 +18,8 @@
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.1",
-    "@types/node": "^18.11.10",
-    "prisma": "^4.7.0"
+    "@types/node": "^18.11.12",
+    "prisma": "^4.7.1"
   },
   "packageManager": "yarn@3.3.0"
 }
