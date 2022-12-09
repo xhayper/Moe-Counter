@@ -1,3 +1,5 @@
+import 'dotenv/config';
+
 import fastify, { type RouteShorthandOptions } from 'fastify';
 import { getCountImage, themeList } from './utils/themify';
 import { PrismaClient } from '@prisma/client';
