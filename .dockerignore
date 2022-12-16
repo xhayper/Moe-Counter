@@ -1,0 +1,16 @@
+/prisma/migrations
+/node_modules
+/dist
+
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+
+.example.env
+.prettierrc
+.DS_Store
+*.sqlite3
