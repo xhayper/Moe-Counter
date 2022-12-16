@@ -100,6 +100,7 @@ import util from 'node:util';
     } else {
       count = '1234567890';
     }
+
     const { data } = getCountImage({ count, theme, length, pixelated });
 
     res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
