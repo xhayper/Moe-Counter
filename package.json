@@ -15,7 +15,7 @@
     "fastify": "^4.10.2",
     "image-size": "^1.0.2",
     "mime-types": "^2.1.35",
-    "svg-to-img": "^2.0.9"
+    "svg2img": "^1.0.0-beta.2"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.1",

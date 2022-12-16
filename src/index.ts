@@ -2,12 +2,15 @@ import 'dotenv/config';
 
 import fastify, { type RouteShorthandOptions } from 'fastify';
 import { getCountImage, themeList } from './utils/themify';
+import svg2Img, { type svg2imgOptions } from 'svg2img';
 import { PrismaClient } from '@prisma/client';
-import * as svgToImg from 'svg-to-img';
 import path from 'node:path';
+import util from 'node:util';
 
 (async () => {
   const prisma = new PrismaClient();
+
+  const svg2ImgPromise = util.promisify<string, svg2imgOptions | undefined, Buffer>(svg2Img);
 
   const server = fastify({
     logger: {
@@ -101,7 +104,7 @@ import path from 'node:path';
 
     res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
 
-    return format === 'png' ? await svgToImg.from(data).toPng({ quality: 100 }) : data;
+    return format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : data;
   });
 
   server.get('/number/:amount', customizationOption, async (req, res) => {
@@ -134,7 +137,7 @@ import path from 'node:path';
 
     res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
 
-    return format === 'png' ? await svgToImg.from(data).toPng({ quality: 100 }) : data;
+    return format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : data;
   });
 
   server.get('/heart-beat', () => 'alive');
