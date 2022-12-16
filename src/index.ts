@@ -26,6 +26,13 @@ import util from 'node:util';
 
   await server.register(import('@fastify/compress'));
 
+  type ImageOption = {
+    theme: string;
+    length: number;
+    pixelated: boolean;
+    format: 'png' | 'svg';
+  };
+
   const customizationOption: RouteShorthandOptions = {
     schema: {
       querystring: {
@@ -53,12 +60,16 @@ import util from 'node:util';
     }
   };
 
+  const cache: Map<string, Buffer> = new Map();
+
+  setInterval(() => void cache.clear(), 3600 * 1000);
+
   server.get('/count/:identifier', customizationOption, async (req, res) => {
     const { identifier } = req.params as any;
-    let { theme, length, pixelated, format } = req.query as any;
+    let { theme, length, pixelated, format } = req.query as ImageOption;
 
     theme = theme ?? 'moebooru';
-    length = parseInt(length ?? '7');
+    length = parseInt((length as unknown as string) ?? '7');
 
     if (!identifier || identifier.length > 256) {
       res.code(400);
@@ -69,9 +80,11 @@ import util from 'node:util';
       };
     }
 
+    res.header('Content-Type', format === 'png' ? 'image/png' : 'image/svg+xml');
+
     let count: string | number = 0;
     if (identifier !== 'demo') {
-      res.header('cache-control', 'max-age=0, no-cache, no-store, must-revalidate');
+      res.header('Cache-Control', 'max-age=0, no-cache, no-store, must-revalidate');
 
       let CountData = await prisma.count.findFirst({
         where: {
@@ -97,20 +110,38 @@ import util from 'node:util';
             count
           }
         });
+
+      const { data } = getCountImage({ count, theme, length, pixelated });
+
+      return format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : data;
     } else {
+      res.header('Cache-Control', 'public, max-age=604800, immutable');
+      res.header('Expires', new Date(Date.now() + 604800 * 1000).toUTCString());
+
       count = '1234567890';
+
+      const cacheKey = `${count}${theme}${length}${!!pixelated}${format ?? 'svg'}`;
+
+      const cachedData = cache.get(cacheKey);
+      if (cachedData) return cachedData;
+
+      const { data } = getCountImage({ count, theme, length, pixelated });
+      const transformedData =
+        format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : Buffer.from(data);
+      cache.set(cacheKey, transformedData);
+
+      return transformedData;
     }
-
-    const { data } = getCountImage({ count, theme, length, pixelated });
-
-    res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
-
-    return format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : data;
   });
 
   server.get('/number/:amount', customizationOption, async (req, res) => {
+    console.log(cache);
+
+    res.header('Cache-Control', 'public, max-age=604800, immutable');
+    res.header('Expires', new Date(Date.now() + 604800 * 1000).toUTCString());
+
     let { amount } = req.params as any;
-    let { theme, length, pixelated, format } = req.query as any;
+    let { theme, length, pixelated, format } = req.query as ImageOption;
 
     if (amount.length > 16) {
       res.code(400);
@@ -122,7 +153,7 @@ import util from 'node:util';
     }
 
     theme = theme ?? 'moebooru';
-    length = parseInt(length ?? '7');
+    length = parseInt((length as unknown as string) ?? '7');
     amount = parseInt(amount);
 
     if (!amount || 0 > amount) {
@@ -134,11 +165,19 @@ import util from 'node:util';
       };
     }
 
+    res.header('Content-Type', format === 'png' ? 'image/png' : 'image/svg+xml');
+
+    const cacheKey = `${amount}${theme}${length}${!!pixelated}${format ?? 'svg'}`;
+
+    const cachedData = cache.get(cacheKey);
+    if (cachedData) return cachedData;
+
     const { data } = getCountImage({ count: amount, theme, length, pixelated });
+    const transformedData =
+      format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : Buffer.from(data);
+    cache.set(cacheKey, transformedData);
 
-    res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
-
-    return format === 'png' ? await svg2ImgPromise(data, { format: 'png' as any, quality: 100 }) : data;
+    return transformedData;
   });
 
   server.get('/heart-beat', () => 'alive');
