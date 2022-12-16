@@ -10,7 +10,7 @@
 !.yarn/versions
 .pnp.*
 
-.example.env
 .prettierrc
 .DS_Store
 *.sqlite3
+*.env
