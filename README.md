@@ -9,11 +9,11 @@
 
 ##### asoul
 
-![asoul](https://moe-counter.hayper.repl.co/count/demo?theme=asoul?format=png)
+![asoul](https://moe-counter.hayper.repl.co/count/demo?theme=asoul&format=png)
 
 ##### moebooru
 
-![moebooru](https://moe-counter.hayper.repl.co/count/demo?theme=moebooru?format=png)
+![moebooru](https://moe-counter.hayper.repl.co/count/demo?theme=moebooru&format=png)
 
 ##### rule34
 
@@ -21,11 +21,11 @@
 
 ##### gelbooru
 
-![Gelbooru](https://moe-counter.hayper.repl.co/count/demo?theme=gelbooru?format=png)
+![Gelbooru](https://moe-counter.hayper.repl.co/count/demo?theme=gelbooru&format=png)
 
 ##### e621
 
-![e621](https://moe-counter.hayper.repl.co/count/demo?theme=e621?format=png)
+![e621](https://moe-counter.hayper.repl.co/count/demo?theme=e621&format=png)
 
   <details>
     <summary>NSFW</summary>
