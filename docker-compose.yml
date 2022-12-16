@@ -10,5 +10,6 @@ services:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
       - /usr/src/app/.yarn/cache
+      - /usr/src/app/prisma/migrations
     ports:
       - 3000:3000
