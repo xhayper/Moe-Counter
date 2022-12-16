@@ -90,7 +90,7 @@ import path from 'node:path';
           }
         });
     } else {
-      count = '0123456789';
+      count = '1234567890';
     }
 
     res.header('content-type', 'image/svg+xml');
@@ -127,9 +127,7 @@ import path from 'node:path';
     return getCountImage({ count: amount, theme, length, pixelated });
   });
 
-  server.get('/heart-beat', () => {
-    return 'alive';
-  });
+  server.get('/heart-beat', () => 'alive');
 
   server.listen({
     host: process.env.HOST ?? '0.0.0.0',
