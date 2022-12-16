@@ -3,6 +3,7 @@ import 'dotenv/config';
 import fastify, { type RouteShorthandOptions } from 'fastify';
 import { getCountImage, themeList } from './utils/themify';
 import { PrismaClient } from '@prisma/client';
+import * as svgToImg from 'svg-to-img';
 import path from 'node:path';
 
 (async () => {
@@ -38,6 +39,10 @@ import path from 'node:path';
           },
           pixelated: {
             type: 'boolean'
+          },
+          format: {
+            type: 'string',
+            enum: ['png', 'svg']
           }
         },
         additionalProperties: false
@@ -47,7 +52,7 @@ import path from 'node:path';
 
   server.get('/count/:identifier', customizationOption, async (req, res) => {
     const { identifier } = req.params as any;
-    let { theme, length, pixelated } = req.query as any;
+    let { theme, length, pixelated, format } = req.query as any;
 
     theme = theme ?? 'moebooru';
     length = parseInt(length ?? '7');
@@ -92,14 +97,16 @@ import path from 'node:path';
     } else {
       count = '1234567890';
     }
+    const { data } = getCountImage({ count, theme, length, pixelated });
 
-    res.header('content-type', 'image/svg+xml');
-    return getCountImage({ count, theme, length, pixelated });
+    res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
+
+    return format === 'png' ? await svgToImg.from(data).toPng({ quality: 100 }) : data;
   });
 
   server.get('/number/:amount', customizationOption, async (req, res) => {
     let { amount } = req.params as any;
-    let { theme, length, pixelated } = req.query as any;
+    let { theme, length, pixelated, format } = req.query as any;
 
     if (amount.length > 16) {
       res.code(400);
@@ -123,8 +130,11 @@ import path from 'node:path';
       };
     }
 
-    res.header('content-type', 'image/svg+xml');
-    return getCountImage({ count: amount, theme, length, pixelated });
+    const { data } = getCountImage({ count: amount, theme, length, pixelated });
+
+    res.header('content-type', format === 'png' ? 'image/png' : 'image/svg+xml');
+
+    return format === 'png' ? await svgToImg.from(data).toPng({ quality: 100 }) : data;
   });
 
   server.get('/heart-beat', () => 'alive');

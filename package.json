@@ -14,7 +14,8 @@
     "dotenv": "^16.0.3",
     "fastify": "^4.10.2",
     "image-size": "^1.0.2",
-    "mime-types": "^2.1.35"
+    "mime-types": "^2.1.35",
+    "svg-to-img": "^2.0.9"
   },
   "devDependencies": {
     "@types/mime-types": "^2.1.1",

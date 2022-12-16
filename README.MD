@@ -82,6 +82,7 @@ datasource db {
 - `theme` - theme you gonna use (default: moebooru)
 - `length` - amount of number to show, will automatically expand the size if the number is laerger than set (default: 7)
 - `pixelated` - should the svg be rendered with pixelated style? (default: true)
+- `format` - choose between `png` and `svg` format (default: svg)
 
 ## Credits
 
