@@ -2,18 +2,18 @@
 
 多种风格可选的萌萌计数器
 
-![Moe-counter](https://moe-counter.hayper.repl.co/count/Moe-counter.github)
+![Moe-counter](https://moe-counter.hayper.repl.co/count/Moe-counter.github?format=png)
 
 <details>
 <summary>More theme</summary>
 
 ##### asoul
 
-![asoul](https://moe-counter.hayper.repl.co/count/demo?theme=asoul)
+![asoul](https://moe-counter.hayper.repl.co/count/demo?theme=asoul?format=png)
 
 ##### moebooru
 
-![moebooru](https://moe-counter.hayper.repl.co/count/demo?theme=moebooru)
+![moebooru](https://moe-counter.hayper.repl.co/count/demo?theme=moebooru?format=png)
 
 ##### rule34
 
@@ -21,11 +21,11 @@
 
 ##### gelbooru
 
-![Gelbooru](https://moe-counter.hayper.repl.co/count/demo?theme=gelbooru)
+![Gelbooru](https://moe-counter.hayper.repl.co/count/demo?theme=gelbooru?format=png)
 
 ##### e621
 
-![e621](https://moe-counter.hayper.repl.co/count/demo?theme=e621)
+![e621](https://moe-counter.hayper.repl.co/count/demo?theme=e621?format=png)
 
   <details>
     <summary>NSFW</summary>
