@@ -188,6 +188,7 @@
         return;
       }
 
+      object.setAttribute("type", `image/${format === "png" ? "png" : "svg+xml"}`);
       object.setAttribute("data", encodeURI(`/count/${name}?theme=${theme}&pixelated=${pixelated}&format=${format}`));
     });
   </script>
