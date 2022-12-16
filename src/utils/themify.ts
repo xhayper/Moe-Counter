@@ -41,7 +41,7 @@ export const getCountImage = ({
   theme?: string;
   length?: number;
   pixelated?: boolean;
-}): string => {
+}): { data: string; width: number; height: number } => {
   if (!(theme in themeList)) theme = 'moebooru';
 
   const countArray = count.toString().padStart(length, '0').split('');
@@ -59,11 +59,15 @@ export const getCountImage = ({
     y = Math.max(y, height);
   }
 
-  return `<?xml version="1.0" encoding="UTF-8"?>
+  return {
+    data: `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="${x}" height="${y}" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" ${
-    pixelated ? "style='image-rendering: pixelated;'" : ''
-  }>
+      pixelated ? "style='image-rendering: pixelated;'" : ''
+    }>
   <title>${count}</title>
   <g>${parts}</g>
-</svg>`;
+</svg>`,
+    width: x,
+    height: y
+  };
 };

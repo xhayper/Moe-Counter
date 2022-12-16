@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#FFFFFF" />
 
-  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
 
   <meta property="og:title" content="Moe Counter!" />
 
-  <meta property="og:image" content="https://moe-counter.hayper.repl.co/count/index?theme=e621" />
-  <meta property="og:image:secure_url" content="https://moe-counter.hayper.repl.co/count/index?theme=e621" />
+  <meta property="og:image" content="https://moe-counter.hayper.repl.co/count/index?theme=e621&format=png" />
+  <meta property="og:image:secure_url" content="https://moe-counter.hayper.repl.co/count/index?theme=e621&format=png" />
   <meta property="og:image:type" content="image/svg+xml" />
   <meta property="og:image:alt" content="Moe Count!" />
 
@@ -74,7 +74,9 @@
       </h3>
     </summary>
 
-    <p1 style="margin: 0"><br />Just use the query parameters <code>theme</code>, like this:
+    <p1 style="margin: 0">
+      <br>
+      Just use the query parameters <code>theme</code>, like this:
       <code>https://moe-counter.hayper.repl.co/count/:identifier?theme=rule34</code>
     </p1>
 
@@ -90,7 +92,9 @@
     <object type="image/svg+xml" data="/count/demo?theme=e621" alt="e621"></object>
 
     <details>
-      <summary><span style="color: #ff4500">NSFW</span></summary>
+      <summary>
+        <span style="color: #ff4500">NSFW</span>
+      </summary>
 
       <h5>moebooru-h</h5>
       <!-- <object type="image/svg+xml" data="/count/demo?theme=moebooru-h" alt="Moebooru-Hentai"></object> -->
@@ -143,6 +147,16 @@
       <option value="gelbooru">gelbooru</option>
       <option value="e621">e621</span></option>
     </select>
+    <code>&pixelated=</code>
+    <select id="pixelated" style="display: inline-block; height: 1.6em; line-height: 1.6em; font-size: 14px; margin: 0 4px; padding: 0 4px; vertical-align: middle;">
+      <option value="true">true</option>
+      <option value="false">false</option>
+    </select>
+    <code>&format=</code>
+    <select id="format" style="display: inline-block; height: 1.6em; line-height: 1.6em; font-size: 14px; margin: 0 4px; padding: 0 4px; vertical-align: middle;">
+      <option value="svg">svg</option>
+      <option value="png">png</option>
+    </select>
     <button id="get" style="margin: 10px 0;" onclick="_evt_push('click', 'normal', 'get_counter')">Get</button>
     <object type="image/svg+xml" id="result" style="display: block;"></object>
   </div>
@@ -160,17 +174,21 @@
 
     btn.addEventListener("click", () => {
       const nameEl = document.getElementById("name"),
-        themeEl = document.getElementById("theme");
+        themeEl = document.getElementById("theme"),
+        pixelatedEl = document.getElementById("pixelated"),
+        formatEl = document.getElementById("format");
 
       const name = nameEl.value?.trim() ?? "";
       const theme = themeEl.value;
+      const pixelated = pixelatedEl.value;
+      const format = formatEl.value;
 
       if (name === "") {
         alert("Please input counter name.");
         return;
       }
 
-      object.setAttribute("data", encodeURI(`/count/${name}?theme=${theme}`));
+      object.setAttribute("data", encodeURI(`/count/${name}?theme=${theme}&pixelated=${pixelated}&format=${format}`));
     });
   </script>
 </body>
