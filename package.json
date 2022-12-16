@@ -6,6 +6,10 @@
   "author": "journey-ad",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "dev": "ts-node-dev --poll src/index.ts",
+    "build": "rimraf ./dist && tsc"
+  },
   "dependencies": {
     "@fastify/compress": "^6.2.0",
     "@fastify/one-line-logger": "^1.1.1",
@@ -20,7 +24,10 @@
   "devDependencies": {
     "@types/mime-types": "^2.1.1",
     "@types/node": "^18.11.15",
-    "prisma": "^4.7.1"
+    "prisma": "^4.7.1",
+    "rimraf": "^3.0.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^4.9.4"
   },
   "packageManager": "yarn@3.3.0"
 }

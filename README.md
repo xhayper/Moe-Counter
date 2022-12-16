@@ -50,10 +50,10 @@
 ```shell
 $ git clone https://github.com/xhayper/Moe-counter.git
 $ cd Moe-counter
-$ yarn
+$ yarn install
 $ npx prisma generate
 $ npx prisma migrate dev --name init
-$ tsc
+$ yarn run build
 $ node .
 ```
 
