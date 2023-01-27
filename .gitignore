@@ -266,4 +266,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,windows,vim,visualstudiocode,node,database
 
-./prisma/migrations/
+/prisma/migrations/
