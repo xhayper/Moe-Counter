@@ -57,6 +57,12 @@ $ pnpm run build
 $ node .
 ```
 
+#### Updating Prisma
+
+```shell
+$ npx prisma generate
+```
+
 ### Configuration
 
 `.env`
