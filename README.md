@@ -1,8 +1,8 @@
-# Moe-counter
+# Moe-Counter
 
 多种风格可选的萌萌计数器
 
-![Moe-counter](https://moe-counter.hayper.repl.co/count/Moe-counter.github?format=png)
+![Moe-Counter](https://moe-counter.hayper.repl.co/count/Moe-counter.github?format=png)
 
 <details>
 <summary>More theme</summary>
@@ -48,12 +48,12 @@
 #### Deploying on your own server
 
 ```shell
-$ git clone https://github.com/xhayper/Moe-counter.git
-$ cd Moe-counter
-$ yarn install
+$ git clone https://github.com/xhayper/Moe-Counter.git
+$ cd Moe-Counter
+$ pnpm install
 $ npx prisma generate
 $ npx prisma migrate dev --name init
-$ yarn run build
+$ pnpm run build
 $ node .
 ```
 
@@ -86,8 +86,8 @@ datasource db {
 
 ## Credits
 
-- [repl.it](https://repl.it/)
-- [A-SOUL](https://www.asoulworld.com/) <sup>(非官方导航站)</sup>
+- [replit](https://replit.com/)
+- [A-SOUL_Official](https://space.bilibili.com/703007996)
 - [moebooru](https://github.com/moebooru/moebooru)
 - rule34.xxx NSFW
 - gelbooru.com NSFW
